@@ -1,0 +1,239 @@
+.underline_center {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+}
+
+.underline_center:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 51%;
+    right: 51%;
+    bottom: 0;
+    background: currentColor;
+    height: 2px;
+    -webkit-transition-property: left, right;
+    transition-property: left, right;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.underline_center:hover:before,
+.underline_center:focus:before,
+.underline_center:active:before {
+    left: 0;
+    right: 0;
+}
+
+
+
+.underline-left {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    position: relative;
+    overflow: hidden;
+}
+
+.underline-left:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: currentColor;
+    height: 1px;
+    -webkit-transition-property: right;
+    transition-property: right;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.underline-left:hover:before,
+.underline-left:focus:before,
+.underline-left:active:before {
+    right: 0;
+}
+
+.underline-top-bot::before {
+    margin-left: auto;
+}
+
+.underline-top-bot::after,
+.underline-top-bot::before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f44336;
+    display: block;
+    transition: 0.3s;
+}
+
+.underline-top-bot:hover::after,
+.underline-top-bot:hover::before {
+    width: 100%;
+}
+
+.hidden-left {
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.show-left {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.hidden-bot {
+    transform: translateY(min(5%, 200px));
+    opacity: 0;
+}
+
+.show-bot {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hidden-top {
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+.show-top {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.hidden-right {
+    transform: translateX(50%);
+    opacity: 0;
+}
+
+.show-right {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.hidden-rotate {
+    transform: rotateY(0deg);
+    opacity: 0;
+}
+
+.show-rotate {
+    transform: rotateY(360deg);
+    opacity: 1;
+}
+
+/* Loading */
+.loading {
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.circle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    background-color: #fff;
+    transform-origin: 50%;
+    animation: circleBound 0.5s ease 0s infinite alternate;
+}
+
+@keyframes circleBound {
+    0% {
+        top: calc(50% + 60px);
+        height: 5px;
+        border-radius: 50px 50px 25px 25px;
+        transform: scaleX(1.7);
+    }
+
+    40% {
+        height: 20px;
+        border-radius: 50%;
+        transform: scaleX(1);
+    }
+
+    100% {
+        top: 50%;
+    }
+}
+
+.circle:nth-child(1) {
+    left: 45%;
+}
+
+.circle:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.circle:nth-child(3) {
+    left: 55%;
+    animation-delay: 0.3s;
+}
+
+.shadow {
+    width: 20px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: absolute;
+    top: calc(50% + 62px);
+    left: 50%;
+    z-index: -1;
+    filter: blur(1px);
+    transform-origin: 50%;
+    animation: shadow 0.5s ease 0s infinite alternate;
+}
+
+@keyframes shadow {
+    0% {
+        transform: scaleX(1.5);
+    }
+
+    40% {
+        transform: scaleX(1);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scaleX(0.2);
+        opacity: 0.4;
+    }
+}
+
+.shadow:nth-child(4) {
+    left: 45%;
+}
+
+.shadow:nth-child(5) {
+    animation-delay: 0.2s
+}
+
+.shadow:nth-child(6) {
+    left: 55%;
+    animation-delay: 0.3s;
+}

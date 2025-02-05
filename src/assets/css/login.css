@@ -1,0 +1,303 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100dvw;
+    height: 100%;
+    min-height: 100vh;
+    background: url(../images/loginBg.png) no-repeat center;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+    /* thanh cuộn */
+    height: 20px;
+    background: #f5f5f5;
+    border-radius: 1em;
+    transition: all 1s ease-in-out;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #60ff11;
+}
+
+*::-webkit-scrollbar-track {
+    /* khu vực chứa thanh cuộn */
+    background: #333;
+}
+
+*::selection {
+    background: rgb(200, 160, 255, 0.5);
+    color: #f5f5f5;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1 {
+    text-align: center;
+    margin: 0 0 1em 0;
+    color: #000;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.9);
+    transition: all 0.2s;
+    user-select: none;
+}
+
+h1:hover {
+    color: #fff;
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.2),
+        0 3px 1px rgba(0, 0, 0, 0.3),
+        0 0 5px rgba(255, 255, 255, 0.9),
+        0 0 10px rgba(255, 255, 255, 0.9),
+        0 0 20px rgba(255, 255, 255, 0.9)
+}
+
+p {
+    text-align: center;
+}
+
+p#exist_user {
+    margin: 0;
+    color: #000;
+    font-size: 1em;
+    text-shadow: 0 0 1px #000;
+}
+
+p#login_notify {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    top: -2em;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+a.form {
+    display: inline-block;
+    margin: 0.1em 0;
+    color: #f5f5f5;
+    font-weight: bold;
+    transition: all 0.2s;
+    border: solid transparent;
+    border-width: 0 0 2px 0;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+}
+
+a.form:hover {
+    border: solid #f5f5f5;
+    border-width: 0 0 2px 0;
+    color: #f5f5f5;
+}
+
+form {
+    width: 35dvw;
+    height: fit-content;
+    margin: 0 auto;
+    position: relative;
+    top: 3em;
+    padding: 20px 20px 0 20px;
+    border: none;
+    border-radius: 1.5em;
+    outline: 1px solid rgb(200, 160, 255);
+    backdrop-filter: blur(3px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 1s;
+}
+
+fieldset {
+    width: 100%;
+    margin-bottom: 1em;
+    border: 2px solid transparent;
+    border-radius: 0.5em;
+    color: #fff;
+    box-shadow: 0 0 0 1px #fff;
+    position: relative;
+    transition: all 0.3s;
+}
+
+fieldset.pass {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+legend {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: rgba(190, 148, 249);
+    text-shadow: 0 0 3px #000, 0 0 6px rgba(0, 0, 0, 0.7);
+    padding: 0 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transition: all 0.4s;
+    user-select: none;
+    z-index: -1;
+}
+
+input {
+    font-size: 1.1em;
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: transparent;
+    font-weight: 700;
+}
+
+.active {
+    top: -1px;
+    left: 6px;
+    z-index: 10;
+    padding: 2px;
+    font-size: 0.6em;
+    color: #fff;
+    text-shadow: none;
+}
+
+.remember_me {
+    width: 100%;
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+
+    #remember_me {
+        width: 1em;
+        height: 1em;
+        margin: 0;
+        font-size: 1.2em;
+        font-weight: bold;
+        accent-color: rgba(251, 132, 203);
+    }
+
+    label {
+        margin-left: 0.2em;
+        font-size: 1.3em;
+        font-weight: 700;
+        color: #000;
+        text-shadow: 0 0 1px #fff;
+        user-select: none;
+        transition: all 0.1s ease-out;
+    }
+}
+
+button {
+    margin-top: 0.5em;
+    width: 140%;
+    height: 3em;
+    border: none;
+    border-radius: 100% 100% 0 0;
+    background: #be94f94f;
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-shadow: 0 0 5px #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+button:hover {
+    background: #be94f98d;
+    color: #ddd;
+    text-shadow: 0 0 5px #000;
+}
+
+button:active {
+    height: 2.5em;
+    margin-top: 1em;
+}
+
+.eye {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+svg {
+    display: none;
+    position: absolute;
+}
+
+#verification {
+    width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 2em;
+    border-radius: 1.5em;
+    outline: 1px solid rgb(200, 160, 255);
+    backdrop-filter: blur(5px);
+    color: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s;
+    z-index: 1;
+
+    h2 {
+        text-align: center;
+        margin-top: 0;
+        font-size: 2.5em;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: 0 4px 2px #000;
+    }
+
+    .center {
+        display: block;
+        width: fit-content;
+        height: fit-content;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    p {
+        font-size: 1.1em;
+        font-weight: 700;
+    }
+}
+
+.error {
+    width: 100%;
+    color: rgb(255, 87, 87);
+    font-size: 1em;
+    font-style: italic;
+    font-weight: 600;
+    text-shadow: 0 0 1px rgb(255, 87, 87),
+        0 0 1px #000,
+        0 0 2px #000,
+        0 0 2px rgb(255, 87, 87),
+        0 0 3px #000,
+        0 0 4px #000;
+}
+
+.error p {
+    margin: -0.5em 0 1em 0.7em;
+    text-align: left;
+    letter-spacing: 1px;
+}
