@@ -2,7 +2,7 @@
 session_start();
 ob_start();
 
-// Đặt múi giờ mặc định
+// Set default timezone
 date_default_timezone_set("Asia/Ho_Chi_Minh");
 
 // App path

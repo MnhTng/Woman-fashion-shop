@@ -114,7 +114,7 @@ function show_home_product($i)
             <img src='{$_SESSION['product'][$i]['image']}' alt='{$_SESSION['product'][$i]['name']} {$_SESSION['product'][$i]['pcode']}'>
         </div>
         <h3>" . mb_convert_case($_SESSION['product'][$i]['name'], MB_CASE_UPPER) . "</h3>
-        <p>{$_SESSION['product'][$i]['intro']}</p>
+        <p>" . mb_convert_case($_SESSION['product'][$i]['intro'], MB_CASE_TITLE) . "</p>
         <a href='?mod=posts&controller=detail&id={$_SESSION['product'][$i]['id']}&cat={$cat}&code={$_SESSION['product'][$i]['pcode']}' class='btn'>View Details</a>
         </div>
         ";
@@ -220,7 +220,7 @@ function show_list_product_by_category($id, $cat, $page)
                         <img src='{$item['image']}' alt='{$item['name']} {$item['pcode']}'>
                     </div>
                     <h3>" . mb_convert_case($item['name'], MB_CASE_UPPER) . "</h3>
-                    <p>{$item['intro']}</p>
+                    <p>" . mb_convert_case($item['intro'], MB_CASE_TITLE) . "</p>
                     <a href='?mod=posts&controller=detail&id={$id}&cat={$cat}&code={$item['pcode']}' class='btn'>View Details</a>
                     </div>
                     ";
@@ -319,7 +319,7 @@ function show_list_product_by_category($id, $cat, $page)
                         <img src='{$item['image']}' alt='{$item['name']} {$item['pcode']}'>
                     </div>
                     <h3>" . mb_convert_case($item['name'], MB_CASE_UPPER) . "</h3>
-                    <p>{$item['intro']}</p>
+                    <p>" . mb_convert_case($item['intro'], MB_CASE_TITLE) . "</p>
                     <a href='?mod=posts&controller=detail&id={$id}&code={$item['pcode']}' class='btn'>View Details</a>
                     </div>
                     ";
@@ -418,7 +418,7 @@ function show_list_product_by_category($id, $cat, $page)
                 <img src='{$item['image']}' alt='{$item['name']} {$item['pcode']}'>
             </div>
             <h3>" . mb_convert_case($item['name'], MB_CASE_UPPER) . "</h3>
-            <p>{$item['intro']}</p>
+            <p>" . mb_convert_case($item['intro'], MB_CASE_TITLE) . "</p>
             <a href='?mod=posts&controller=detail&id=0&code={$item['pcode']}' class='btn'>View Details</a>
             </div>
             ";

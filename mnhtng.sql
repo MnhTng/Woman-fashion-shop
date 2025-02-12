@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th2 05, 2025 lúc 05:38 PM
+-- Thời gian đã tạo: Th2 12, 2025 lúc 03:42 AM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -45,6 +45,29 @@ INSERT INTO `banner` (`id`, `src`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `cancel_order`
+--
+
+CREATE TABLE `cancel_order` (
+  `id` int(10) NOT NULL,
+  `user` int(10) NOT NULL,
+  `order_code` char(10) NOT NULL,
+  `reason` enum('Change your mind','Confusion when ordering','Unable to contact customer','Refuse to receive goods','Unable to pay','Out of stock','System error','Invalid order information','Fraud suspected','Sales Refusal Policy','Unable to deliver','Delivery time too long','Product damage during transportation') NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `cancel_order`
+--
+
+INSERT INTO `cancel_order` (`id`, `user`, `order_code`, `reason`, `date`) VALUES
+(2, 1, '86EEAE300E', 'Unable to pay', '2025-02-10 18:54:43'),
+(3, 1, 'BE0141932A', 'Confusion when ordering', '2025-02-12 00:44:15'),
+(4, 1, 'B06E84F15D', 'Change your mind', '2025-02-12 00:44:29');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `cart`
 --
 
@@ -68,10 +91,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `pcode`, `productID`, `productType`, `name`, `price`, `sale`, `size`, `image`, `quantity`, `subtotal`, `checkout`) VALUES
-(1, 'Q67142', 3, 'Capri Pants', 'quần jeans lửng', 799000, 399000, 'xl', 'https://product.hstatic.net/200000182297/product/3_0b22ab20dd3c4733be2fb0c9415a23fb_master.jpg', 4, 1596000, 1),
-(1, 'TS60042', 2, '', 'áo thun cổ tim', 329000, 0, 'l', 'https://product.hstatic.net/200000182297/product/ts600421902402020462p329dt_q185021702412010247p799dt_5__5ef8b87294a74c93a3fd9d64fc58eb65_master.jpg', 1, 329000, 1),
-(1, 'Q16822', 3, 'Trousers', 'quần ống loe', 899000, 449000, 'xl', 'https://product.hstatic.net/200000182297/product/8_9ffca3bb5c6a4331a4fa1daa3602f982_master.jpg', 2, 898000, 1),
-(1, 'Q67031', 3, 'Jeans', 'quần jeans ống loe', 699000, 489000, 's', 'https://product.hstatic.net/200000182297/product/sm027721212332020474p699ct_q670321732332910291p699dt__2_.jpg_1__6556f47c0e9841fea23972e9743fd3d0_master.jpg', 1, 489000, 1);
+(1, 'SM00072', 1, 'Long Sleeve', 'áo sơ mi kẻ', 899000, 499000, 'm', 'https://product.hstatic.net/200000182297/product/8_d85bc088106c46caba010f919eb51c93_master.jpg', 1, 499000, 0);
 
 -- --------------------------------------------------------
 
@@ -93,6 +113,67 @@ INSERT INTO `category` (`id`, `name`, `type`) VALUES
 (1, 'Shirts', 'Short Sleeve, Medium Sleeve, Long Sleeve'),
 (2, 'T-shirt', ''),
 (3, 'Pants', 'Shorts, Capri Pants, Trousers, Jeans');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `order`
+--
+
+CREATE TABLE `order` (
+  `code` char(10) NOT NULL,
+  `product` char(10) NOT NULL,
+  `size` varchar(30) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` bigint(20) NOT NULL,
+  `user` int(10) NOT NULL,
+  `order_date` datetime NOT NULL,
+  `payment_method` enum('COD','VnPay') NOT NULL,
+  `status` enum('Pending','Awaiting Payment','Payment Failed','Paid','Processing','On Hold','Pre-Order','Backordered','Shipped','Out for Delivery','Delivery Attempt Failed','Partially Shipped','Delivered','Completed','Closed','Cancelled','Return Requested','Return in Progress','Returned','Refunded') NOT NULL,
+  `delivery_address` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `tel` varchar(15) NOT NULL,
+  `message` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_vietnamese_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `order`
+--
+
+INSERT INTO `order` (`code`, `product`, `size`, `quantity`, `total`, `user`, `order_date`, `payment_method`, `status`, `delivery_address`, `email`, `tel`, `message`) VALUES
+('0E1DC372D8', 'SM00512', 'm', 1, 919000, 1, '2025-02-11 23:07:57', 'VnPay', 'Awaiting Payment', 'sdf', 'domanhtung321@gmail.com', '0777888999', ''),
+('0EADCEDEA0', 'Q14512', '2xl', 1, 449000, 1, '2025-02-12 00:42:15', 'VnPay', 'Paid', 'asdasd', 'domanhtung321@gmail.com', '0777888999', 'asdasd'),
+('17541B3268', 'SM00103', 'm', 2, 799000, 1, '2025-02-12 00:43:28', 'VnPay', 'Payment Failed', 'zxczxc', 'domanhtung321@gmail.com', '0777888999', 'zxczxvs'),
+('23B47BC45E', 'Q16822', 'xl', 2, 898000, 1, '2025-02-12 00:30:29', 'VnPay', 'Paid', 'Xala', 'domanhtung321@gmail.com', '0777888999', 'Mau Luong'),
+('28908B8F9F', 'Q67192', 'l', 3, 2577000, 1, '2025-02-12 00:43:28', 'VnPay', 'Payment Failed', 'zxczxc', 'domanhtung321@gmail.com', '0777888999', 'zxczxvs'),
+('36F433F3C1', 'Q03472', 'l', 2, 1598000, 1, '2025-02-12 00:42:15', 'VnPay', 'Paid', 'asdasd', 'domanhtung321@gmail.com', '0777888999', 'asdasd'),
+('3A6066C176', 'Q67142', 'xl', 3, 1197000, 1, '2025-02-11 10:01:24', 'COD', 'Pending', 'Tay Son - Ha Noi', 'domanhtung321@gmail.com', '0777888999', 'abc'),
+('3AC8317C74', 'Q67082', 's', 2, 758000, 1, '2025-02-10 20:22:58', 'COD', 'Pending', 'PTIT', 'domanhtung321@gmail.com', '0777888999', 'Quay tít'),
+('3C75CCD4C5', 'SM03242', 'm', 1, 719000, 1, '2025-02-10 18:49:43', 'COD', 'Pending', 'Mỹ Đình', 'domanhtung321@gmail.com', '0777888999', ''),
+('40E69BCB8D', 'Q67192', 'm', 2, 1718000, 1, '2025-02-12 00:35:00', 'VnPay', 'Payment Failed', 'hkjrtyh', 'domanhtung321@gmail.com', '0777888999', 'rtert'),
+('45A9092CE7', 'TS60042', 'l', 1, 329000, 1, '2025-02-11 10:01:24', 'COD', 'Pending', 'Tay Son - Ha Noi', 'domanhtung321@gmail.com', '0777888999', 'abc'),
+('484E88682C', 'SM01872', 'm', 1, 919000, 1, '2025-02-11 11:04:50', 'VnPay', 'Awaiting Payment', 'asdasd', 'domanhtung321@gmail.com', '0777888999', ''),
+('51091F075D', 'Q41092', 'm', 4, 1996000, 1, '2025-02-10 20:21:04', 'COD', 'Pending', 'Ha Noi', 'domanhtung321@gmail.com', '0777888999', ''),
+('775AA99EAD', 'SM42172', 'xl', 2, 598000, 1, '2025-02-10 18:47:55', 'COD', 'Pending', 'Tân Tiến - An Dương - Hải Phòng', 'domanhtung321@gmail.com', '0777888999', 'Giao hàng nhanh em còn có đồ chơi tết'),
+('7B3172D59B', 'TS60072', 'm', 1, 349000, 1, '2025-02-10 23:51:15', 'COD', 'Pending', 'Thanh Xuan', 'domanhtung321@gmail.com', '0777888999', ''),
+('86EEAE300E', 'Q02802', 'm', 3, 2397000, 1, '2025-02-10 18:52:40', 'COD', 'Cancelled', 'Ha Noi', 'domanhtung321@gmail.com', '0777888999', 'Đẹp phết'),
+('95F996FBB9', 'Q67082', 's', 4, 1516000, 1, '2025-02-12 00:26:59', 'VnPay', 'Paid', 'tung', 'domanhtung321@gmail.com', '0777888999', 'abc'),
+('A4F6B61344', 'SM05372', 'm', 1, 819000, 1, '2025-02-12 00:33:50', 'VnPay', 'Payment Failed', 'asd', 'domanhtung321@gmail.com', '0777888999', 'asd'),
+('AD975B12E9', 'Q67031', 's', 1, 509000, 1, '2025-02-11 10:57:51', 'VnPay', 'Awaiting Payment', 'Hai Phong city', 'domanhtung321@gmail.com', '0777888999', ''),
+('B06E84F15D', 'SM01872', 'm', 1, 919000, 1, '2025-02-11 11:07:51', 'VnPay', 'Cancelled', 'asda', 'domanhtung321@gmail.com', '0777888999', ''),
+('B0709B73AF', 'SM16592', 'xl', 1, 819000, 1, '2025-02-10 20:23:35', 'COD', 'Pending', 'Ngọc Trục ', 'domanhtung321@gmail.com', '0777888999', 'PTIT '),
+('B221B340DA', 'Q67031', 's', 1, 489000, 1, '2025-02-12 00:30:29', 'VnPay', 'Paid', 'Xala', 'domanhtung321@gmail.com', '0777888999', 'Mau Luong'),
+('BAFF629B03', 'TS60042', 'l', 2, 658000, 1, '2025-02-11 10:13:35', 'VnPay', 'Awaiting Payment', 'asd', 'domanhtung321@gmail.com', '0777888999', ''),
+('BC4B35CAC3', 'SM16592', '2xl', 2, 1598000, 1, '2025-02-11 11:23:02', 'VnPay', 'Awaiting Payment', 'aaaaa', 'domanhtung321@gmail.com', '0777888999', ''),
+('BE0141932A', 'SM05372', 'l', 2, 1598000, 1, '2025-02-12 00:06:28', 'VnPay', 'Cancelled', 'sdfsdff', 'domanhtung321@gmail.com', '0777888999', ''),
+('C9FBBAE1C0', 'Q00672', 'm', 1, 259000, 1, '2025-02-11 09:54:33', 'COD', 'Pending', 'asdasd', 'domanhtung321@gmail.com', '0777888999', 'asd'),
+('CBEA2A4DFF', 'SM01872', 'm', 1, 919000, 1, '2025-02-11 11:03:48', 'VnPay', 'Awaiting Payment', 'asda', 'domanhtung321@gmail.com', '0777888999', ''),
+('D476EC6833', 'SM01872', 'm', 1, 919000, 1, '2025-02-11 11:01:52', 'VnPay', 'Awaiting Payment', 'asd', 'domanhtung321@gmail.com', '0777888999', ''),
+('D9905E1A01', 'Q67031', 's', 1, 509000, 1, '2025-02-12 00:40:12', 'VnPay', 'Payment Failed', 'asdads', 'domanhtung321@gmail.com', '0777888999', ''),
+('DD353523D9', 'Q02802', 'm', 1, 819000, 1, '2025-02-11 23:30:28', 'VnPay', 'Awaiting Payment', 'asd', 'domanhtung321@gmail.com', '0777888999', ''),
+('E41F9761B6', 'Q02432', 'm', 3, 2097000, 1, '2025-02-12 00:33:01', 'VnPay', 'Payment Failed', 'ahsidh', 'domanhtung321@gmail.com', '0777888999', 'sdfyoi'),
+('E4390F2313', 'SM05372', 'l', 1, 819000, 1, '2025-02-10 20:22:21', 'COD', 'Pending', 'ABCXYZ', 'domanhtung321@gmail.com', '0777888999', 'Alooooooooo'),
+('E8703E22EB', 'Q16822', 'l', 1, 469000, 1, '2025-02-12 00:28:47', 'VnPay', 'Paid', 'asd', 'domanhtung321@gmail.com', '0777888999', 'asd');
 
 -- --------------------------------------------------------
 
@@ -221,10 +302,22 @@ ALTER TABLE `banner`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `cancel_order`
+--
+ALTER TABLE `cancel_order`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `category`
 --
 ALTER TABLE `category`
   ADD PRIMARY KEY (`id`,`type`);
+
+--
+-- Chỉ mục cho bảng `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`code`);
 
 --
 -- Chỉ mục cho bảng `product`
@@ -247,6 +340,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `banner`
   MODIFY `id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT cho bảng `cancel_order`
+--
+ALTER TABLE `cancel_order`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `user`

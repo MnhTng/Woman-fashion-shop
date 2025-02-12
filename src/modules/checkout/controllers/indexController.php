@@ -1,7 +1,7 @@
 <?php
 function construct()
 {
-    load_model('checkout');
+    load_model('index');
 }
 
 function indexAction()
@@ -18,5 +18,5 @@ function indexAction()
         'quantity' => $quantity,
     ];
 
-    load_view('checkout', $data);
+    load_view('index', $data);
 }

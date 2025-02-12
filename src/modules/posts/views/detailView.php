@@ -7,7 +7,7 @@
 
     <div class="product-detail">
         <div class='dialog'>
-            <img src='./src/assets/images/sizeTable.png' alt=''>
+            <img class="size-guild" src='./src/assets/images/sizeTable.png' alt=''>
 
             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1'
                 stroke='currentColor' class='size-6'>
@@ -133,171 +133,171 @@
 <?php get_footer(); ?>
 
 <script>
-//! ========== Show Dialog ==========
-let guild = document.querySelector('.guild');
-let dialog = document.querySelector('.dialog');
-let exit = dialog.querySelector('svg');
+    //! ========== Show Dialog ==========
+    let guild = document.querySelector('.guild');
+    let dialog = document.querySelector('.dialog');
+    let exit = dialog.querySelector('svg');
 
-guild.addEventListener('click', () => {
-    dialog.style.width = "100%";
-    dialog.style.height = "100%";
-    dialog.style.opacity = "1";
-    exit.style.display = "block";
-});
+    guild.addEventListener('click', () => {
+        dialog.style.width = "100%";
+        dialog.style.height = "100%";
+        dialog.style.opacity = "1";
+        exit.style.display = "block";
+    });
 
-exit.addEventListener('click', () => {
-    dialog.style.width = "0";
-    dialog.style.height = "0";
-    dialog.style.opacity = "0";
-    exit.style.display = "none";
-});
+    exit.addEventListener('click', () => {
+        dialog.style.width = "0";
+        dialog.style.height = "0";
+        dialog.style.opacity = "0";
+        exit.style.display = "none";
+    });
 
-//! ========== Select Number Product ==========
-let number = document.querySelector('input.quantity');
-let minus = document.querySelector('.dec');
-let plus = document.querySelector('.inc');
+    //! ========== Select Number Product ==========
+    let number = document.querySelector('input.quantity');
+    let minus = document.querySelector('.dec');
+    let plus = document.querySelector('.inc');
 
-minus.addEventListener('click', () => {
-    if (number.value > 1)
-        number.value--;
-});
+    minus.addEventListener('click', () => {
+        if (number.value > 1)
+            number.value--;
+    });
 
-plus.addEventListener('click', () => {
-    number.value++;
-});
+    plus.addEventListener('click', () => {
+        number.value++;
+    });
 
-//! ========== Set Animation Thumb Slider ==========
-let slider = document.querySelector('.slider');
-let numberThumb = <?php echo $numberThumb; ?>
+    //! ========== Set Animation Thumb Slider ==========
+    let slider = document.querySelector('.slider');
+    let numberThumb = <?php echo $numberThumb; ?>
 
-// Lấy tham chiếu đến sheet
-const stylesheet = document.styleSheets[4];
+    // Lấy tham chiếu đến sheet
+    const stylesheet = document.styleSheets[4];
 
-// Tìm keyframes rule có tên "slider"
-let keyframesRule = null;
-for (let i = 0; i < stylesheet.cssRules.length; i++) {
-    const rule = stylesheet.cssRules[i];
-    if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === 'slider') {
-        keyframesRule = rule;
-        break;
+    // Tìm keyframes rule có tên "slider"
+    let keyframesRule = null;
+    for (let i = 0; i < stylesheet.cssRules.length; i++) {
+        const rule = stylesheet.cssRules[i];
+        if (rule.type === CSSRule.KEYFRAMES_RULE && rule.name === 'slider') {
+            keyframesRule = rule;
+            break;
+        }
     }
-}
 
-if (keyframesRule) {
-    slider.style.animation = `slider ${numberThumb * 5}s linear infinite forwards`;
+    if (keyframesRule) {
+        slider.style.animation = `slider ${numberThumb * 5}s linear infinite forwards`;
 
-    // Sửa đổi keyframes
-    window.addEventListener('load', () => {
-        let image = document.querySelector('.slider>img');
-        let imageHeight = image.offsetHeight;
+        // Sửa đổi keyframes
+        window.addEventListener('load', () => {
+            let image = document.querySelector('.slider>img');
+            let imageHeight = image.offsetHeight;
 
-        const keyframeRuleEnd = keyframesRule.findRule('100%');
-        keyframeRuleEnd.style.transform =
-            `translateY(calc((${numberThumb} * -${imageHeight}px) - (${numberThumb - 1} * 5px + 4px)))`;
+            const keyframeRuleEnd = keyframesRule.findRule('100%');
+            keyframeRuleEnd.style.transform =
+                `translateY(calc((${numberThumb} * -${imageHeight}px) - (${numberThumb - 1} * 5px + 4px)))`;
+        });
+
+        window.addEventListener('resize', () => {
+            let image = document.querySelector('.slider>img');
+            let imageHeight = image.offsetHeight;
+
+            const keyframeRuleEnd = keyframesRule.findRule('100%');
+            keyframeRuleEnd.style.transform =
+                `translateY(calc((${numberThumb} * -${imageHeight}px) - (${numberThumb - 1} * 5px + 4px)))`;
+        });
+    }
+
+    //! ========== Pause Animation Thumb Slider ==========
+    slider.addEventListener('mouseenter', () => {
+        slider.style.animationPlayState = 'paused';
     });
 
-    window.addEventListener('resize', () => {
-        let image = document.querySelector('.slider>img');
-        let imageHeight = image.offsetHeight;
-
-        const keyframeRuleEnd = keyframesRule.findRule('100%');
-        keyframeRuleEnd.style.transform =
-            `translateY(calc((${numberThumb} * -${imageHeight}px) - (${numberThumb - 1} * 5px + 4px)))`;
-    });
-}
-
-//! ========== Pause Animation Thumb Slider ==========
-slider.addEventListener('mouseenter', () => {
-    slider.style.animationPlayState = 'paused';
-});
-
-slider.addEventListener('mouseleave', () => {
-    slider.style.animationPlayState = 'running';
-});
-
-//! ========== Ajax Handle ==========
-$(document).ready(function() {
-    //! ========== Add Cart ==========
-    $('button[name=add_btn]').on('click', function() {
-        $('form.cart .product-act button').removeClass('click');
-
-        $(this).addClass('click');
-    });
-    $('button[name=buy_btn]').on('click', function() {
-        $('form.cart .product-act button').removeClass('click');
-
-        $(this).addClass('click');
+    slider.addEventListener('mouseleave', () => {
+        slider.style.animationPlayState = 'running';
     });
 
-    $('form.cart').on('submit', function(e) {
-        e.preventDefault();
-        let load;
+    //! ========== Ajax Handle ==========
+    $(document).ready(function() {
+        //! ========== Add Cart ==========
+        $('button[name=add_btn]').on('click', function() {
+            $('form.cart .product-act button').removeClass('click');
 
-        let formData = $(this).serialize();
-        let action = $('button.click').val();
-        let code = $('button.click').attr('data-code');
-        formData += "&action=" + action + "&code=" + code;
+            $(this).addClass('click');
+        });
+        $('button[name=buy_btn]').on('click', function() {
+            $('form.cart .product-act button').removeClass('click');
 
-        $.ajax({
-            url: '?mod=posts&controller=detail&act=add_buy',
-            type: 'POST',
-            dataType: 'json',
-            data: formData,
-            beforeSend: function() {
-                load = setTimeout(function() {
-                    $('.loading').css('display', 'flex');
-                }, 500);
-            },
-            success: function(response) {
-                $('.loading').css('display', 'none');
-                clearTimeout(load);
+            $(this).addClass('click');
+        });
 
-                if (response.login) {
-                    $('.alert-fixed').append(warning_alert_jq(response.login));
+        $('form.cart').on('submit', function(e) {
+            e.preventDefault();
+            let load;
 
-                    close_alert_jq();
+            let formData = $(this).serialize();
+            let action = $('button.click').val();
+            let code = $('button.click').attr('data-code');
+            formData += "&action=" + action + "&code=" + code;
+
+            $.ajax({
+                url: '?mod=posts&controller=detail&act=add_buy',
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                beforeSend: function() {
+                    load = setTimeout(function() {
+                        $('.loading').css('display', 'flex');
+                    }, 500);
+                },
+                success: function(response) {
+                    $('.loading').css('display', 'none');
+                    clearTimeout(load);
+
+                    if (response.login) {
+                        $('.alert-fixed').append(warning_alert_jq(response.login));
+
+                        close_alert_jq();
+                    }
+
+                    if (response.size) {
+                        $('.alert-fixed').append(error_alert_jq(response.size));
+
+                        close_alert_jq();
+                    }
+                    if (response.quantity) {
+                        $('.alert-fixed').append(error_alert_jq(response.quantity));
+
+                        close_alert_jq();
+                    }
+
+                    if (response.success) {
+                        if ($('span.number-product').length == 0) {
+                            let span = document.createElement('span');
+                            span.classList.add('number-product');
+                            span.textContent = response.number;
+                            document.querySelector(".cart>a.number-item").appendChild(span);
+                        } else
+                            $('span.number-product').text(response.number);
+
+                        $('.alert-fixed').append(success_alert_jq(response.success));
+
+                        close_alert_jq();
+                    }
+
+                    if (response.buy) {
+                        let redirect = document.createElement('a');
+                        redirect.href = "?mod=checkout&code=" + response.code +
+                            "&size=" + response.size + "&quantity=" + response.quantity;
+                        document.body.appendChild(redirect);
+                        redirect.click();
+                        document.body.removeChild(redirect);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.status);
+                    console.log(status);
+                    console.log(error);
                 }
-
-                if (response.size) {
-                    $('.alert-fixed').append(error_alert_jq(response.size));
-
-                    close_alert_jq();
-                }
-                if (response.quantity) {
-                    $('.alert-fixed').append(error_alert_jq(response.quantity));
-
-                    close_alert_jq();
-                }
-
-                if (response.success) {
-                    if ($('span.number-product').length == 0) {
-                        let span = document.createElement('span');
-                        span.classList.add('number-product');
-                        span.textContent = response.number;
-                        document.querySelector(".cart>a.number-item").appendChild(span);
-                    } else
-                        $('span.number-product').text(response.number);
-
-                    $('.alert-fixed').append(success_alert_jq(response.success));
-
-                    close_alert_jq();
-                }
-
-                if (response.buy) {
-                    let redirect = document.createElement('a');
-                    redirect.href = "?mod=cart&controller=checkout&code=" + response.code +
-                        "&size=" + response.size + "&quantity=" + response.quantity;
-                    document.body.appendChild(redirect);
-                    redirect.click();
-                    document.body.removeChild(redirect);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.log(xhr.status);
-                console.log(status);
-                console.log(error);
-            }
+            });
         });
     });
-});
 </script>

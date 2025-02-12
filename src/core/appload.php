@@ -24,7 +24,6 @@ if (is_array($autoload)) {
     }
 }
 
-
 // Connect database and load data to session variable
 db_connect($db);
 
@@ -57,6 +56,12 @@ if (isset($_SESSION['is_login']) && !empty($_SESSION['cart'])) {
 if (isset($_SESSION['user_id'])) {
     $sql = "SELECT * FROM user WHERE id = {$_SESSION['user_id']}";
     $_SESSION['account'] = db_fetch_row($sql);
+
+    $sql = "SELECT * FROM `order` WHERE user = {$_SESSION['user_id']} AND `status` != 'Cancelled' ORDER BY order_date DESC";
+    $_SESSION['order'] = db_fetch_array($sql);
+
+    $sql = "SELECT * FROM `cancel_order` WHERE user = {$_SESSION['user_id']}";
+    $_SESSION['cancel_order'] = db_fetch_array($sql);
 }
 
 require CORE_PATH . DIRECTORY_SEPARATOR . 'router.php';

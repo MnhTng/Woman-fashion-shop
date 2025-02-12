@@ -54,7 +54,7 @@ function db_fetch_array($query_string)
     $result = array();
     $mysqli_result = db_query($query_string);
 
-    while ($row = mysqli_fetch_assoc($mysqli_result)) 
+    while ($row = mysqli_fetch_assoc($mysqli_result))
         $result[] = $row;
 
     mysqli_free_result($mysqli_result);
@@ -102,7 +102,7 @@ function db_update($table, $data, $where)
         else
             $sql .= "$field = '" . db_escape_string($value) . "', ";
     }
-    
+
     $sql = substr($sql, 0, -2);
     db_query("
         UPDATE `{$table}`
