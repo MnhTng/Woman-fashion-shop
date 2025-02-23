@@ -8,14 +8,12 @@ Welcome to the DMT Shop project documentation. This guide will help you set up, 
 - [Features](#features)
 - [Configuration](#configuration)
 - [Usage](#usage)
-- [Deployment](#deployment)
-- [Troubleshooting](#troubleshooting)
 
-## 📖 Introduction
+## 📖 <span id="introduction">Introduction</span>
 
 This DMT_Shop project is designed to provide a convenient and instant environment for online shopping need. It includes a variety of features to streamline the development process and ensure a smooth user experience.
 
-## 🌟 Features
+## 🌟 <span id="features">Features</span>
 
 - **User Authentication**:
     - Safe password hashing and login process.
@@ -25,7 +23,7 @@ This DMT_Shop project is designed to provide a convenient and instant environmen
 - **Checkout Functionality**: Checkout allows customers to finalize their purchase by reviewing items in their cart, entering delivery details, and selecting a payment method. This component streamlines the transaction, enhancing order accuracy and user confidence.
 - **Order Processing**: Follow and manage order processing.
 
-## ⚙️ Configuration
+## ⚙️ <span id="configuration">Configuration</span>
 
 ### Prerequisites
 
@@ -61,7 +59,7 @@ This DMT_Shop project is designed to provide a convenient and instant environmen
         ]
         ```
 
-## 🚀 Usage
+## 🚀 <span id="usage">Usage</span>
 
 ### User Account 
 - 1. mnhtngdev - tung123
